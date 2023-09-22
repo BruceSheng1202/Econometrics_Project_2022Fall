@@ -1,0 +1,50 @@
+---
+title: "萧政香港回归论文"
+author: "Bruce Sheng"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r 安装r包}
+devtools::install_github("jpshuimu/rhcw")
+```
+包中内置24个地区的实际GDP增速的面板数据，数据来源于Hsiao et.al (2012)，唯一变量是季度实际GDP增长率。每个国家有61个时间序列观测值。
+对于政治一体化，将使用中国、印度尼西亚、日本、韩国、马来西亚、菲律宾、新加坡、台湾、泰国和美国10个地区1993年第1季度至2007年第2季度的季度实际GDP增长率来形成从1997年第3季度到2003年第4季度的反事实路径。
+在经济一体化中，24个国家（2到25列）的季度实际国内生产总值（GDP）增长率被用来构成2004年第1季度至2008年第1季度的反事实。
+```{r 数据描述}
+library(rhcw)
+data <- hcw_data
+
+head(data)    #查看数据集前6行数据
+
+# 数据以markdown格式输出
+library(knitr)
+knitr::kable(data,format = "markdown")
+```
+借助未受政策干预组（其余国家）的资料构建干预组（香港）的反事实GDP增速
+```{r 构建反事实推断}
+result <- draw_donorpool(data = hcw_data,
+ target_name = "Hong Kong",
+ donorpool_name = NULL,
+ time_name = "date",
+ period = 20, 
+ nvmax = 6)
+plot_sim_result(result)
+plot_delta(result)
+```
+画出反事实的GDP增速和实际GDP增速的差值，可看出经济一体化使香港的年实际GDP提高了约4%。
+
+首先我们看政治上的统一，即1997年7月1日回归的影响。以1997年7月作为平行宇宙的分割断点，作者发现，虽然在刚刚回归之后的两个季度，对经济有较为明显的的拖累。但是从长期来看，平行宇宙中的香港经济走势（虚线）与现实中香港经济走势（实线）并无显著的差别。
+
+
+虚构政策实施时间的安慰剂检验：
+```{r 安慰剂检验}
+placebo_time(result, lead_period = 5)
+```
+
+通过虚构政策在T-5到T-1实施的安慰剂试验，可以看出这样构建出的反事实和实际GDP差值（虚构的政策变量的效果）是不显著的，可以说明这一GDP增量的确是经济一体化政策实施的冲击导致的。
+
+```{r 虚构处理组的安慰剂检验}
+placebo_unit(result)
+```
+
