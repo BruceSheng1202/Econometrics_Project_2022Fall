@@ -13,4 +13,4 @@ Lastly, I considered the historical context surrounding the project. The announc
 In alignment with Hollingsworth's approach outlined in 2022, I conducted a rigorous optimization of parameters through a combination of rolling cross-validation and grid searching. This enhanced methodology have been aplied in another project in my another course, "Issues in Development Economics" taught by Huang Chen at Xiamen University. I am proud to note that the essay I authored, rooted in this methodology, garnered praise from Dr. Chen. It's worth mentioning that the ultimate conclusion drawn from this research aligns with the findings of Hsiao (2012), indicating that the return of Hong Kong to China in 1997 had no statistically significant impact on Hong Kong's GDP.
 
 ### Future Improvement
-In 2023Fall, I would try some other bether methods and improve this project again, maybe some time seires prediction algorithms in Machine Learning and Deep Learning.
+In the upcoming fall of 2023, I am committed to enhancing and refining this project further. 
